@@ -1,0 +1,2326 @@
+<html lang="en"><head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>KonzoGames</title>
+
+<link rel="icon" href="K.png">
+
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700;900&amp;display=swap" rel="stylesheet">
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+}
+
+body{
+    font-family:'Inter',sans-serif;
+    background:
+    radial-gradient(circle at top,#14335e 0%,#07111f 45%,#050b14 100%);
+    color:white;
+    overflow-x:hidden;
+    min-height:100vh;
+    transition:.3s;
+}
+
+/* HEADER */
+
+.header{
+    width:100%;
+    height:82px;
+
+    background:rgba(5,15,28,.92);
+
+    backdrop-filter:blur(14px);
+
+    border-bottom:
+    1px solid rgba(255,255,255,.08);
+
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:0 22px;
+
+    position:sticky;
+    top:0;
+    z-index:999;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.4),
+    0 0 40px rgba(77,163,255,.08);
+}
+
+.left{
+    display:flex;
+    align-items:center;
+    gap:16px;
+}
+
+.menu-btn{
+    width:48px;
+    height:48px;
+
+    border-radius:16px;
+
+    display:flex;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-size:28px;
+
+    background:rgba(255,255,255,.05);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+}
+
+.menu-btn:hover{
+    background:#123055;
+
+    transform:
+    scale(1.08)
+    rotate(4deg);
+
+    box-shadow:
+    0 0 20px rgba(77,163,255,.35);
+}
+
+.logo{
+    position:absolute;
+    left:50%;
+    transform:translateX(-50%);
+
+    font-size:34px;
+    font-weight:900;
+
+    letter-spacing:-1px;
+
+    text-shadow:
+    0 0 20px rgba(77,163,255,.3);
+}
+
+.logo span{
+    color:#58a9ff;
+}
+
+.right{
+    display:flex;
+    align-items:center;
+    gap:12px;
+}
+
+/* SEARCH */
+
+.search{
+    width:320px;
+    height:46px;
+
+    border:none;
+    outline:none;
+
+    background:#0d1d33;
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:18px;
+
+    padding:0 18px;
+
+    color:white;
+
+    transition:.25s;
+
+    font-size:15px;
+}
+
+.search::placeholder{
+    color:#89a4c7;
+}
+
+.search:focus{
+    width:390px;
+
+    border:1px solid #58a9ff;
+
+    box-shadow:
+    0 0 25px rgba(88,169,255,.35);
+}
+
+/* SIDEBAR */
+
+.sidebar{
+    position:fixed;
+    top:0;
+    left:-330px;
+
+    width:320px;
+    height:100%;
+
+    background:
+    linear-gradient(
+    180deg,
+    #091423,
+    #07101b
+    );
+
+    z-index:1000;
+
+    transition:.35s;
+
+    overflow-y:auto;
+
+    border-right:
+    1px solid rgba(255,255,255,.06);
+
+    box-shadow:
+    0 0 60px rgba(0,0,0,.55);
+}
+
+.sidebar.active{
+    left:0;
+}
+
+.sidebar-header{
+    padding:24px;
+
+    font-size:28px;
+    font-weight:900;
+
+    border-bottom:
+    1px solid rgba(255,255,255,.06);
+
+    background:
+    linear-gradient(
+    90deg,
+    rgba(77,163,255,.12),
+    transparent
+    );
+}
+
+.settings{
+    padding:18px;
+}
+
+.setting-title{
+    color:#7ba3d3;
+
+    font-size:12px;
+
+    margin-bottom:12px;
+    margin-top:16px;
+
+    text-transform:uppercase;
+
+    font-weight:700;
+
+    letter-spacing:1px;
+}
+
+.setting{
+    background:#0d1d33;
+
+    border:
+    1px solid rgba(255,255,255,.06);
+
+    padding:15px;
+
+    border-radius:16px;
+
+    margin-bottom:12px;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    font-weight:600;
+}
+
+.setting:hover{
+    background:#163861;
+
+    transform:translateX(6px);
+
+    box-shadow:
+    0 0 20px rgba(77,163,255,.22);
+}
+
+/* OVERLAY */
+
+.overlay{
+    position:fixed;
+    inset:0;
+
+    background:rgba(0,0,0,.6);
+
+    opacity:0;
+
+    pointer-events:none;
+
+    transition:.25s;
+
+    z-index:998;
+
+    backdrop-filter:blur(4px);
+}
+
+.overlay.active{
+    opacity:1;
+    pointer-events:auto;
+}
+
+/* BANNER */
+
+.banner-wrap{
+    display:flex;
+    justify-content:center;
+
+    margin-top:30px;
+
+    padding:0 20px;
+}
+
+.banner{
+    width:100%;
+    max-width:980px;
+
+    background:
+    linear-gradient(
+    135deg,
+    #173d6d,
+    #0a1830
+    );
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:30px;
+
+    padding:32px;
+
+    text-align:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    box-shadow:
+    0 20px 40px rgba(0,0,0,.4),
+    0 0 40px rgba(77,163,255,.12);
+}
+
+.banner::before{
+    content:"";
+
+    position:absolute;
+    width:300px;
+    height:300px;
+
+    background:
+    radial-gradient(
+    circle,
+    rgba(88,169,255,.22),
+    transparent 70%
+    );
+
+    top:-120px;
+    right:-80px;
+}
+
+.banner h2{
+    font-size:40px;
+    margin-bottom:10px;
+}
+
+.banner p{
+    color:#bfd7f2;
+    font-size:16px;
+}
+
+/* SECTION */
+
+.section{
+    margin-top:60px;
+    padding:0 30px;
+}
+
+.section-title{
+    text-align:center;
+
+    font-size:60px;
+    font-weight:900;
+
+    margin-bottom:35px;
+
+    letter-spacing:-2px;
+
+    text-shadow:
+    0 0 20px rgba(77,163,255,.22);
+}
+
+/* GRID */
+
+.grid{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:center;
+    gap:18px;
+}
+
+/* GAME */
+
+.game{
+    width:125px;
+    height:125px;
+
+    border-radius:26px;
+
+    background:#10213a;
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    background-size:cover;
+    background-position:center;
+
+    position:relative;
+
+    overflow:hidden;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    animation:fadeIn .5s ease;
+}
+
+.game::before{
+    content:"";
+
+    position:absolute;
+    inset:0;
+
+    background:
+    linear-gradient(
+    180deg,
+    transparent,
+    rgba(0,0,0,.3)
+    );
+}
+
+.game:hover{
+    transform:
+    translateY(-10px)
+    scale(1.05);
+
+    border:
+    1px solid rgba(88,169,255,.45);
+
+    box-shadow:
+    0 20px 35px rgba(0,0,0,.45),
+    0 0 30px rgba(77,163,255,.28);
+}
+
+/* GAME NAME */
+
+.game-name{
+    position:absolute;
+    bottom:0;
+
+    width:100%;
+
+    padding:8px;
+
+    text-align:center;
+
+    font-size:11px;
+    font-weight:700;
+
+    background:rgba(0,0,0,.78);
+
+    transform:translateY(100%);
+
+    transition:.22s;
+
+    z-index:3;
+}
+
+.game:hover .game-name{
+    transform:translateY(0);
+}
+
+/* PLAYER */
+
+.player{
+    position:fixed;
+    inset:0;
+
+    background:black;
+
+    display:none;
+
+    z-index:2000;
+}
+
+.player iframe{
+    width:100%;
+    height:100%;
+    border:none;
+}
+
+.close{
+    position:absolute;
+
+    top:18px;
+    right:18px;
+
+    width:52px;
+    height:52px;
+
+    border:none;
+
+    border-radius:16px;
+
+    background:#17437a;
+
+    color:white;
+
+    cursor:pointer;
+
+    font-size:20px;
+
+    z-index:2001;
+
+    transition:.2s;
+}
+
+.close:hover{
+    background:#2c67ad;
+
+    transform:scale(1.08);
+}
+
+/* COMPACT */
+
+.compact .game{
+    width:100px;
+    height:100px;
+}
+
+/* RAINBOW */
+
+.rainbow .header{
+    background:
+    linear-gradient(
+    90deg,
+    #163861,
+    #58a9ff,
+    #163861
+    );
+
+    background-size:300% 300%;
+
+    animation:rainbowMove 6s linear infinite;
+}
+
+/* ANIMATIONS */
+
+@keyframes rainbowMove{
+    0%{
+        background-position:0% 50%;
+    }
+
+    100%{
+        background-position:100% 50%;
+    }
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
+
+/* SCROLLBAR */
+
+::-webkit-scrollbar{
+    width:8px;
+}
+
+::-webkit-scrollbar-thumb{
+    background:#31527d;
+    border-radius:20px;
+}
+
+/* MOBILE */
+
+@media(max-width:700px){
+
+    .search{
+        width:170px;
+    }
+
+    .search:focus{
+        width:210px;
+    }
+
+    .section-title{
+        font-size:40px;
+    }
+
+    .banner h2{
+        font-size:28px;
+    }
+
+}
+
+</style>
+</head>
+<body>
+
+<!-- SIDEBAR -->
+
+<div class="sidebar" id="sidebar">
+
+    <div class="sidebar-header">
+        ⚙ Settings
+    </div>
+
+    <div class="settings">
+
+        <div class="setting-title">
+            Appearance
+        </div>
+
+        <div class="setting" onclick="toggleCompact()">
+            📦 Compact Layout
+        </div>
+
+        <div class="setting" onclick="toggleRainbow()">
+            🌈 Rainbow Header
+        </div>
+
+        <div class="setting" onclick="randomColor()">
+            🎨 Random Background
+        </div>
+
+        <div class="setting-title">
+            Browser
+        </div>
+
+        <div class="setting" onclick="openBlank()">
+            🕵️ Open In about:blank
+        </div>
+
+        <div class="setting-title">
+            Tab Cloak
+        </div>
+
+        <div class="setting" onclick="setCloak('google')">
+            🔍 Google
+        </div>
+
+        <div class="setting" onclick="setCloak('classroom')">
+            📚 Google Classroom
+        </div>
+
+        <div class="setting" onclick="setCloak('drive')">
+            📁 Google Drive
+        </div>
+
+        <div class="setting" onclick="setCloak('docs')">
+            📄 Google Docs
+        </div>
+
+        <div class="setting" onclick="setCloak('blank')">
+            🧼 Reset Tab
+        </div>
+
+        <div class="setting-title">
+            Fun
+        </div>
+
+        <div class="setting" onclick="spinPage()">
+            🌀 Spin Website
+        </div>
+
+    </div>
+
+</div>
+
+<div class="overlay" id="overlay" onclick="toggleSidebar()"></div>
+
+<!-- HEADER -->
+
+<div class="header">
+
+    <div class="left">
+        <div class="menu-btn" onclick="toggleSidebar()">☰</div>
+    </div>
+
+    <div class="logo">
+        konzo<span>games</span>
+    </div>
+
+    <div class="right">
+
+        <input type="text" class="search" id="search" placeholder="Search games...">
+
+    </div>
+
+</div>
+
+<!-- BANNER -->
+
+<div class="banner-wrap">
+
+    <div class="banner">
+
+        <h2>
+            WELCOME TO KONZO GAMES
+        </h2>
+
+        <p>
+            Advanced dark blue UI • smooth animations • fullscreen games
+        </p>
+
+    </div>
+
+</div>
+
+<!-- TOP GAMES -->
+
+<div class="section">
+
+    <div class="section-title">
+        Top 3
+    </div>
+
+    <div class="grid">
+
+        <div class="game" data-name="knife cut" onclick="openGame('game500.html')" style="background-image:url('/sandtris.png')">
+            <div class="game-name">SandTris</div>
+        </div>
+
+        <div class="game" data-name="bridge run" onclick="openGame('game3.html')" style="background-image:url('/yess.png')">
+            <div class="game-name">Bridge Run</div>
+        </div>
+
+        <div class="game" data-name="this is the only level" onclick="openGame('game1.html')" style="background-image:url('/level.png')">
+            <div class="game-name">This Is The Only Level</div>
+        </div>
+
+    </div>
+
+</div>
+
+<!-- GAMES -->
+
+<div class="section">
+
+    <div class="section-title">
+        Games
+    </div>
+
+    <div class="grid" id="grid">
+
+<div class="game" data-name="knife cut" onclick="openGame('game2.html')" style="background-image:url('/kine.png')"><div class="game-name">Knife Cut</div></div>
+
+<div class="game" data-name="bridge run" onclick="openGame('game3.html')" style="background-image:url('/yess.png')"><div class="game-name">Bridge Run</div></div>
+
+<div class="game" data-name="this is the only level" onclick="openGame('game1.html')" style="background-image:url('/level.png')"><div class="game-name">This Is The Only Level</div></div>
+
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Get%20Yoked/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/get%20yoked.jpeg')"><div class="game-name">Get Yoked</div></div>
+        
+<div class="game" data-name="get yoked" onclick="openGame('element.html')" style="background-image:url('element.png')"><div class="game-name">Elemental Masters</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('tele.html')" style="background-image:url('friday.png')"><div class="game-name">Friday Night Funkin'</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Ragdoll%20Drop/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/ragdoll%20drop.jpeg')"><div class="game-name">Ragdoll Drop</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Melon%20Playground/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/melon%20playground.jpeg')"><div class="game-name">Melon Playground</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Escape%20Road%202/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/escape%20road%202.jpeg')"><div class="game-name">Escape Rode 2</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Granny/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/granny.jpeg')"><div class="game-name">Granny</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Moby%20Dick/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/moby%20dick.jpeg')"><div class="game-name">Moby Dihh</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Ragdoll%20Archers/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/ragdoll%20archers.jpeg')"><div class="game-name">Ragdoll Archers</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Geometry%20Dash%20Lite/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/geometry%20dash%20lite.jpeg')"><div class="game-name">Geometry Dash</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/3/html/ragdoll%20hit/game/index.html')" style="background-image:url('https://spreadingsmile.org/3/img/ragdoll%20hit.jpg')"><div class="game-name">Ragdoll Hit</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/3/html/small%20world%20cup/game/index.html')" style="background-image:url('https://spreadingsmile.org/3/img/small%20world%20cup.jpg')"><div class="game-name">Small World Cup</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/5/html/Golf%20Orbit/game/index.html')" style="background-image:url('https://spreadingsmile.org/5/img/golf%20orbit.jpeg')"><div class="game-name">Golf Orbit</div></div>
+     
+<div class="game" data-name="get yoked" onclick="openGame('https://spreadingsmile.org/3/html/gobble/game/index.html')" style="background-image:url('https://spreadingsmile.org/3/img/gobble.jpg')"><div class="game-name">Gobble</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+         
+        <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+       <div class="game" data-name="get yoked" onclick="openGame('yokd.html')" style="background-image:url('78.png')"><div class="game-name">Coming Soon...</div></div>
+     
+  
+
+
+    </div>
+
+</div>
+
+<!-- PLAYER -->
+
+<div class="player" id="playerBox">
+
+    <button class="close" onclick="closeGame()">
+        ✕
+    </button>
+
+    <iframe id="player"></iframe>
+
+</div>
+
+<script>
+
+const sidebar =
+document.getElementById("sidebar");
+
+const overlay =
+document.getElementById("overlay");
+
+/* SIDEBAR */
+
+function toggleSidebar(){
+
+    sidebar.classList.toggle("active");
+
+    overlay.classList.toggle("active");
+
+}
+
+/* SEARCH */
+
+document.getElementById("search")
+.addEventListener("input",function(){
+
+    let val =
+    this.value.toLowerCase();
+
+    document.querySelectorAll(".game")
+    .forEach(g=>{
+
+        let name =
+        g.dataset.name || "";
+
+        g.style.display =
+        name.includes(val)
+        ? "block"
+        : "none";
+
+    });
+
+});
+
+/* PLAYER */
+
+function openGame(src){
+
+    document.getElementById("playerBox")
+    .style.display = "block";
+
+    document.getElementById("player")
+    .src = src;
+
+}
+
+function closeGame(){
+
+    document.getElementById("playerBox")
+    .style.display = "none";
+
+    document.getElementById("player")
+    .src = "";
+
+}
+
+/* SETTINGS */
+
+function toggleCompact(){
+
+    document.body.classList.toggle("compact");
+
+}
+
+function toggleRainbow(){
+
+    document.body.classList.toggle("rainbow");
+
+}
+
+function randomColor(){
+
+    const colors = [
+
+        "radial-gradient(circle at top,#14335e 0%,#07111f 45%,#050b14 100%)",
+
+        "radial-gradient(circle at top,#1a4475 0%,#091827 50%,#050b14 100%)",
+
+        "radial-gradient(circle at top,#0f5d73 0%,#07111f 45%,#050b14 100%)",
+
+        "radial-gradient(circle at top,#2b3d73 0%,#09121f 45%,#050b14 100%)"
+
+    ];
+
+    document.body.style.background =
+    colors[Math.floor(Math.random()*colors.length)];
+
+}
+
+function spinPage(){
+
+    document.body.style.transition = "1s";
+
+    document.body.style.transform =
+    "rotate(360deg)";
+
+    setTimeout(()=>{
+
+        document.body.style.transform =
+        "rotate(0deg)";
+
+    },1000);
+
+}
+
+/* ABOUT BLANK */
+
+function openBlank(){
+
+    let win = window.open();
+
+    win.document.write(`
+        <title>Google</title>
+
+        <style>
+        html,body{
+            margin:0;
+            height:100%;
+            overflow:hidden;
+        }
+
+        iframe{
+            width:100%;
+            height:100%;
+            border:none;
+        }
+        </style>
+
+        <iframe src="${location.href}"></iframe>
+    `);
+
+}
+
+/* TAB CLOAK */
+
+function setCloak(type){
+
+    let favicon =
+    document.querySelector("link[rel='icon']");
+
+    if(type === "google"){
+
+        document.title = "Google";
+
+        favicon.href =
+        "https://www.google.com/favicon.ico";
+
+    }
+
+    if(type === "classroom"){
+
+        document.title = "Classes";
+
+        favicon.href =
+        "https://ssl.gstatic.com/classroom/favicon.png";
+
+    }
+
+    if(type === "drive"){
+
+        document.title = "My Drive";
+
+        favicon.href =
+        "https://ssl.gstatic.com/images/branding/product/1x/drive_2020q4_32dp.png";
+
+    }
+
+    if(type === "docs"){
+
+        document.title = "Google Docs";
+
+        favicon.href =
+        "https://ssl.gstatic.com/docs/documents/images/kix-favicon7.ico";
+
+    }
+
+    if(type === "blank"){
+
+        document.title = "KonzoGames";
+
+        favicon.href = "K.png";
+
+    }
+
+}
+
+</script>
+
+<!-- PUT THIS RIGHT BEFORE </body> -->
+
+<style>
+
+#gameMenuBtn{
+    position:fixed;
+    top:18px;
+    left:18px;
+
+    width:62px;
+    height:62px;
+
+    border-radius:20px;
+
+    background:
+    rgba(10,20,35,.92);
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    backdrop-filter:blur(14px);
+
+    display:none;
+    align-items:center;
+    justify-content:center;
+
+    cursor:pointer;
+
+    z-index:5000;
+
+    transition:.25s;
+
+    box-shadow:
+    0 10px 30px rgba(0,0,0,.5);
+}
+
+#gameMenuBtn:hover{
+    transform:
+    scale(1.08)
+    rotate(4deg);
+
+    background:#163861;
+}
+
+#gameMenuBtn img{
+    width:38px;
+    height:38px;
+    object-fit:contain;
+}
+
+/* MENU */
+
+#gameQuickMenu{
+    position:fixed;
+
+    top:92px;
+    left:18px;
+
+    width:260px;
+
+    background:
+    linear-gradient(
+    180deg,
+    rgba(10,20,35,.98),
+    rgba(5,10,18,.98)
+    );
+
+    border:
+    1px solid rgba(255,255,255,.08);
+
+    border-radius:24px;
+
+    padding:14px;
+
+    z-index:4999;
+
+    display:none;
+
+    backdrop-filter:blur(18px);
+
+    box-shadow:
+    0 25px 60px rgba(0,0,0,.6),
+    0 0 30px rgba(88,169,255,.12);
+
+    animation:menuPop .25s ease;
+}
+
+@keyframes menuPop{
+    from{
+        opacity:0;
+        transform:
+        translateY(-10px)
+        scale(.95);
+    }
+
+    to{
+        opacity:1;
+        transform:
+        translateY(0)
+        scale(1);
+    }
+}
+
+.quick-title{
+    text-align:center;
+
+    font-size:14px;
+    font-weight:900;
+
+    margin-bottom:14px;
+
+    color:#9ecbff;
+
+    letter-spacing:1px;
+}
+
+/* OPTION */
+
+.quick-option{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+
+    padding:14px;
+
+    margin-bottom:12px;
+
+    background:#10213a;
+
+    border-radius:18px;
+
+    transition:.22s;
+}
+
+.quick-option:hover{
+    background:#173b66;
+
+    transform:translateX(4px);
+}
+
+.option-name{
+    font-size:14px;
+    font-weight:700;
+}
+
+/* TOGGLE SWITCH */
+
+.toggle{
+    appearance:none;
+
+    width:56px;
+    height:30px;
+
+    background:rgba(255,255,255,.15);
+
+    border-radius:999px;
+
+    position:relative;
+
+    cursor:pointer;
+
+    transition:.25s;
+
+    border:
+    1px solid rgba(255,255,255,.08);
+}
+
+.toggle::before{
+    content:"";
+
+    position:absolute;
+
+    width:24px;
+    height:24px;
+
+    border-radius:50%;
+
+    background:white;
+
+    top:2px;
+    left:2px;
+
+    transition:.25s;
+
+    box-shadow:
+    0 0 10px rgba(255,255,255,.4);
+}
+
+.toggle:checked{
+    background:#58a9ff;
+
+    box-shadow:
+    0 0 18px rgba(88,169,255,.45);
+}
+
+.toggle:checked::before{
+    transform:translateX(26px);
+}
+
+.exit-btn{
+    width:100%;
+
+    border:none;
+
+    padding:14px;
+
+    border-radius:18px;
+
+    background:#7a1d1d;
+
+    color:white;
+
+    font-weight:800;
+
+    cursor:pointer;
+
+    transition:.22s;
+}
+
+.exit-btn:hover{
+    background:#a92b2b;
+
+    transform:scale(1.03);
+}
+
+</style>
+
+<!-- BUTTON -->
+
+<div id="gameMenuBtn" onclick="toggleMenu()">
+    <img src="K.png">
+</div>
+
+<!-- MENU -->
+
+<div id="gameQuickMenu">
+
+    <div class="quick-title">
+        GAME PANEL
+    </div>
+
+    <div class="quick-option">
+        <div class="option-name">
+            ⛶ Fullscreen
+        </div>
+
+        <input type="checkbox" class="toggle" onchange="fullscreenGame()">
+    </div>
+
+    <div class="quick-option">
+        <div class="option-name">
+            🎬 Theater Mode
+        </div>
+
+        <input type="checkbox" class="toggle" onchange="theaterMode(this)">
+    </div>
+
+    <div class="quick-option">
+        <div class="option-name">
+            ✨ Blur Background
+        </div>
+
+        <input type="checkbox" class="toggle" onchange="toggleBlur(this)">
+    </div>
+
+    <div class="quick-option">
+        <div class="option-name">
+            🌙 Invert Colors
+        </div>
+
+        <input type="checkbox" class="toggle" onchange="toggleInvert(this)">
+    </div>
+
+    <div class="quick-option">
+        <div class="option-name">
+            ⚡ FPS Boost Feel
+        </div>
+
+        <input type="checkbox" class="toggle" onchange="boostGame(this)">
+    </div>
+
+    <button class="exit-btn" onclick="closeGame()">
+        ✕ Exit Game
+    </button>
+
+</div>
+
+<script>
+
+/* SAVE ORIGINALS */
+
+const oldOpenGame = openGame;
+const oldCloseGame = closeGame;
+
+/* SHOW BUTTON */
+
+openGame = function(src){
+
+    oldOpenGame(src);
+
+    document.getElementById("gameMenuBtn")
+    .style.display = "flex";
+
+}
+
+/* HIDE EVERYTHING */
+
+closeGame = function(){
+
+    oldCloseGame();
+
+    document.getElementById("gameMenuBtn")
+    .style.display = "none";
+
+    document.getElementById("gameQuickMenu")
+    .style.display = "none";
+
+    document.getElementById("player")
+    .style.filter = "";
+
+    document.getElementById("playerBox")
+    .style.backdropFilter = "";
+
+}
+
+/* MENU */
+
+function toggleMenu(){
+
+    const menu =
+    document.getElementById("gameQuickMenu");
+
+    menu.style.display =
+    menu.style.display === "block"
+    ? "none"
+    : "block";
+
+}
+
+/* FULLSCREEN */
+
+function fullscreenGame(){
+
+    const iframe =
+    document.getElementById("player");
+
+    if(iframe.requestFullscreen){
+
+        iframe.requestFullscreen();
+
+    }
+
+}
+
+/* THEATER */
+
+function theaterMode(el){
+
+    const player =
+    document.getElementById("playerBox");
+
+    if(el.checked){
+
+        player.style.background =
+        "rgba(0,0,0,.97)";
+
+    }else{
+
+        player.style.background =
+        "black";
+
+    }
+
+}
+
+/* BLUR */
+
+function toggleBlur(el){
+
+    const player =
+    document.getElementById("playerBox");
+
+    if(el.checked){
+
+        player.style.backdropFilter =
+        "blur(8px)";
+
+    }else{
+
+        player.style.backdropFilter =
+        "";
+
+    }
+
+}
+
+/* INVERT */
+
+function toggleInvert(el){
+
+    const iframe =
+    document.getElementById("player");
+
+    if(el.checked){
+
+        iframe.style.filter =
+        "invert(1) hue-rotate(180deg)";
+
+    }else{
+
+        iframe.style.filter =
+        "";
+
+    }
+
+}
+
+/* BOOST */
+
+function boostGame(el){
+
+    const iframe =
+    document.getElementById("player");
+
+    if(el.checked){
+
+        iframe.style.transform =
+        "translateZ(0)";
+
+        iframe.style.imageRendering =
+        "optimizeSpeed";
+
+    }else{
+
+        iframe.style.transform = "";
+
+        iframe.style.imageRendering = "";
+
+    }
+
+}
+
+</script>
+
+
+
+</body>
+<div id="konzoIntro">
+
+    <!-- LOADING SCREEN -->
+    <div id="konzoLoading">
+        <div class="loadBox">
+            <div class="loadTitle">Loading Konzo Games...</div>
+
+            <div class="bar">
+                <div class="barFill" id="barFill"></div>
+            </div>
+
+            <div class="loadText" id="loadText">Initializing...</div>
+        </div>
+    </div>
+
+    <!-- INTRO -->
+    <div class="konzoCard">
+        <div class="konzoTitle">Konzo Games</div>
+        <div class="konzoSubtitle" id="konzoText"></div>
+        <button id="konzoBtn">Start</button>
+    </div>
+
+    <div id="particles"></div>
+</div>
+
+<style>
+#konzoIntro{
+    position: fixed;
+    inset: 0;
+    background: radial-gradient(circle, #111, #000);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 999999;
+    overflow: hidden;
+    color:white;
+}
+
+/* ===== LOADING SCREEN ===== */
+#konzoLoading{
+    position:absolute;
+    inset:0;
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    background:black;
+    z-index:10;
+}
+
+.loadBox{
+    text-align:center;
+    width:300px;
+}
+
+.loadTitle{
+    font-size:18px;
+    margin-bottom:20px;
+    opacity:0.8;
+    letter-spacing:2px;
+}
+
+.bar{
+    width:100%;
+    height:10px;
+    background:#222;
+    border-radius:20px;
+    overflow:hidden;
+}
+
+.barFill{
+    width:0%;
+    height:100%;
+    background:linear-gradient(90deg, red, purple, cyan);
+    transition:0.2s;
+}
+
+.loadText{
+    margin-top:10px;
+    font-size:14px;
+    opacity:0.7;
+}
+
+/* ===== CARD ===== */
+.konzoCard{
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:center;
+    text-align:center;
+    opacity:0;
+    transform:scale(0.9);
+    transition:1s ease;
+}
+
+.konzoCard.show{
+    opacity:1;
+    transform:scale(1);
+}
+
+/* TITLE */
+.konzoTitle{
+    font-size:56px;
+    font-weight:900;
+    background:linear-gradient(90deg, red, orange, yellow, lime, cyan, blue, violet);
+    -webkit-background-clip:text;
+    color:transparent;
+    animation:rainbow 2.5s linear infinite;
+    margin-bottom:15px;
+}
+
+@keyframes rainbow{
+    0%{filter:hue-rotate(0deg);}
+    100%{filter:hue-rotate(360deg);}
+}
+
+/* SUB */
+.konzoSubtitle{
+    font-size:18px;
+    min-height:25px;
+    margin-bottom:25px;
+    opacity:0.85;
+}
+
+/* BUTTON */
+#konzoBtn{
+    opacity:0;
+    transform:translateY(10px);
+    padding:12px 24px;
+    border:none;
+    border-radius:12px;
+    cursor:pointer;
+    font-weight:800;
+    background:white;
+    transition:0.25s ease;
+}
+
+#konzoBtn.show{
+    opacity:1;
+    transform:translateY(0);
+}
+
+/* EXIT */
+.exit{ animation:fadeOut 0.6s forwards; }
+
+@keyframes fadeOut{
+    to{ opacity:0; }
+}
+
+/* BURST */
+.burst{ animation:burst 0.8s forwards; }
+
+@keyframes burst{
+    40%{ transform:scale(1.1); }
+    100%{
+        transform:scale(0.9);
+        opacity:0;
+        filter:blur(10px);
+    }
+}
+
+/* PARTICLES */
+#particles{
+    position:absolute;
+    inset:0;
+    pointer-events:none;
+}
+
+.particle{
+    position:absolute;
+    width:6px;
+    height:6px;
+    border-radius:50%;
+    background:white;
+    animation:fly 1s linear forwards;
+}
+
+@keyframes fly{
+    to{
+        transform:translate(var(--x), var(--y)) scale(0);
+        opacity:0;
+    }
+}
+</style>
+
+<script>
+(function(){
+
+    const text = "made and developed by kenzo";
+    const el = document.getElementById("konzoText");
+    const btn = document.getElementById("konzoBtn");
+    const intro = document.getElementById("konzoIntro");
+    const card = document.querySelector(".konzoCard");
+    const particles = document.getElementById("particles");
+
+    const loading = document.getElementById("konzoLoading");
+    const bar = document.getElementById("barFill");
+    const loadText = document.getElementById("loadText");
+
+    let i = 0;
+
+    // ===== REALISTIC LOADING =====
+    let progress = 0;
+    const fakeSteps = [
+        "porting htmls",
+        "Loading assets...",
+        "Preparing UI...",
+        "adding htmls",
+        "Finalizing..."
+    ];
+
+    const loadInterval = setInterval(() => {
+        progress += Math.random() * 12;
+
+        if(progress > 100) progress = 100;
+
+        bar.style.width = progress + "%";
+
+        loadText.textContent =
+            fakeSteps[Math.floor(progress / 20)] || "Starting...";
+
+        if(progress === 100){
+            clearInterval(loadInterval);
+
+            setTimeout(() => {
+                loading.style.opacity = "0";
+
+                setTimeout(() => {
+                    loading.remove();
+                    startIntro();
+                }, 500);
+
+            }, 400);
+        }
+
+    }, 150);
+
+    // ===== INTRO START =====
+    function startIntro(){
+        card.classList.add("show");
+        type();
+    }
+
+    function type(){
+        if(i < text.length){
+            el.textContent += text[i];
+            i++;
+            setTimeout(type, 45);
+        } else {
+            setTimeout(() => btn.classList.add("show"), 300);
+        }
+    }
+
+    function burstParticles(){
+        for(let i = 0; i < 30; i++){
+            const p = document.createElement("div");
+            p.className = "particle";
+
+            p.style.left = "50%";
+            p.style.top = "50%";
+
+            p.style.setProperty("--x", (Math.random()-0.5)*300 + "px");
+            p.style.setProperty("--y", (Math.random()-0.5)*300 + "px");
+
+            particles.appendChild(p);
+            setTimeout(() => p.remove(), 1000);
+        }
+    }
+
+    btn.addEventListener("click", () => {
+
+        burstParticles();
+        card.classList.add("burst");
+
+        setTimeout(() => {
+            intro.classList.add("exit");
+        }, 200);
+
+        setTimeout(() => {
+            intro.remove();
+        }, 900);
+    });
+
+})();
+</script>
+<script>
+(() => {
+    // style for glow particles
+    const style = document.createElement("style");
+    style.textContent = `
+        .glow-particle {
+            position: fixed;
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            pointer-events: none;
+            z-index: 999999;
+            animation: floatOut 600ms ease-out forwards;
+        }
+
+        @keyframes floatOut {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(0); opacity: 0; }
+        }
+
+        .ripple {
+            position: fixed;
+            border-radius: 50%;
+            border: 2px solid rgba(0,255,200,0.8);
+            width: 20px;
+            height: 20px;
+            pointer-events: none;
+            z-index: 999998;
+            animation: rippleAnim 600ms ease-out forwards;
+        }
+
+        @keyframes rippleAnim {
+            0% { transform: scale(1); opacity: 1; }
+            100% { transform: scale(8); opacity: 0; }
+        }
+    `;
+    document.head.appendChild(style);
+
+    document.addEventListener("click", (e) => {
+        const colors = ["#00ff9d", "#00d4ff", "#ff00ff", "#ffff00"];
+
+        // ripple
+        const ripple = document.createElement("div");
+        ripple.className = "ripple";
+        ripple.style.left = e.clientX - 10 + "px";
+        ripple.style.top = e.clientY - 10 + "px";
+        document.body.appendChild(ripple);
+
+        setTimeout(() => ripple.remove(), 600);
+
+        // particles
+        for (let i = 0; i < 6; i++) {
+            const p = document.createElement("div");
+            p.className = "glow-particle";
+
+            p.style.left = e.clientX + "px";
+            p.style.top = e.clientY + "px";
+
+            p.style.background = colors[Math.floor(Math.random() * colors.length)];
+            p.style.boxShadow = `0 0 10px ${p.style.background}`;
+
+            const angle = Math.random() * Math.PI * 2;
+            const distance = Math.random() * 40;
+
+            p.style.transform = `translate(${Math.cos(angle) * distance}px, ${Math.sin(angle) * distance}px)`;
+
+            document.body.appendChild(p);
+
+            setTimeout(() => p.remove(), 600);
+        }
+    });
+})();
+</script>
+<button id="open">Open in blank tab</button>
+
+<script>
+document.getElementById("open").addEventListener("click", () => {
+    const w = window.open("about:blank", "_blank");
+
+    w.document.write(`
+        <title>Game</title>
+        <body style="margin:0;background:black;color:white;display:flex;align-items:center;justify-content:center;font-family:Arial;">
+            <h1>Game Loaded in Blank Tab</h1>
+        </body>
+    `);
+
+    w.document.close();
+});
+</script>
+</html>
